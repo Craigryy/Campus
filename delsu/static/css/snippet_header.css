@@ -1,0 +1,84 @@
+/* General Styles */
+.header-navigation {
+    border-bottom: 1px solid #ddd; /* Light border for separation */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.navbar-brand img.navbar-logo {
+    height: 40px;
+    object-fit: contain;
+}
+
+.navbar-toggler {   
+    border: none; /* Remove default border */
+    background-color: transparent; /* Keep the background transparent */
+    padding: 5px 10px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23ff9800' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    /* Orange lines for the hamburger menu */
+}
+
+.navbar-toggler:hover .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23e67e00' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    /* Darker orange on hover */
+    transition: all 0.3s ease;
+}
+
+/* 
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+} */
+
+.navbar-collapse {
+    justify-content: flex-end; /* Align menu items to the right */
+}
+
+
+.navbar-nav .nav-item {
+    margin: 0; /* Remove extra spacing between items */
+}
+
+.navbar-nav .nav-item a {
+    font-family: 'Arial', sans-serif; /* Change font to Arial or your preferred font */
+    font-size: 16px; /* Adjust font size for readability */
+    font-weight: 500; /* Moderate weight for a clean look */
+    color: #333; /* Neutral text color */
+    border-radius: 0; /* Remove rounded corners */
+    padding: 10px 15px; /* Consistent padding */
+    text-transform: capitalize; /* Capitalize only the first letter of each word */
+    transition: color 0.3s ease, background-color 0.3s ease;
+
+    text-decoration: none; /* Remove underline (if present) */
+    outline: none; /* Remove focus outline */
+    border: none; /* Remove any border if applied */
+    color: inherit; /* Ensure text color is inherited */
+}
+
+.navbar-nav .nav-item a:hover {
+    color: #ff9800; /* Orange text on hover */
+    background-color: transparent; /* Keep background clean */
+}
+
+.bg-light {
+    background-color: #f8f9fa !important; /* Light background for navbar */
+}
+
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background-color: #f8f9fa; /* Ensure light background on mobile menu */
+        padding: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 10px 0; /* Add spacing between items in mobile view */
+    }
+}

@@ -1,0 +1,38 @@
+{% load static i18n wagtailcore_tags %}
+
+
+
+<!-- Link to CSS -->
+<link rel="stylesheet" href="{% static 'css/snippet_header.css' %}">
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg fixed-top header-navigation bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo1.png' %}" alt="Tory's" class="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto center-txt">
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary nav-col size" href="/">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary nav-col size" href="/blog/">BLOG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary nav-col size" href="/pairs/">RELATIONSHIP</a>
+                </li>
+             
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary nav-col size" href="#contact">CONTACT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary nav-col size" href="#about">ABOUT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
