@@ -1,0 +1,17 @@
+[flake8]
+exclude =
+  migrations,
+  __pycache__,
+  app/manage.py,   # Ignore manage.py inside the app directory
+  app/settings/*,  # Ignore all files inside the settings directory
+  node_modules,    # Ignore frontend dependencies (if applicable)
+  static,          # Ignore static files
+  media,           # Ignore uploaded media files
+  */wsgi.py,       # Ignore WSGI entry points
+  */asgi.py,       # Ignore ASGI entry points
+  */__init__.py,   # Ignore empty __init__.py files
+  venv,            # Ignore virtual environment
+  .venv,           # Ignore virtual environment
+  tests,           # Ignore test files if they cause issues
+  wagtail_hooks.py # Wagtail-specific hooks
+
