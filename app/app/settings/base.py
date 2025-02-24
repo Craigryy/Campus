@@ -48,7 +48,11 @@ INSTALLED_APPS = [
     "user",
     "relationship",
     "blog",
-    'core',
+    "core",
+    "wagtail.api.v2",  # Ensure Wagtail API is enabled
+    "rest_framework",
+    "drf_spectacular",
+
 
 ]
 
@@ -191,3 +195,9 @@ WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'tx
 
 
 AUTH_USER_MODEL = 'core.User'
+
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
