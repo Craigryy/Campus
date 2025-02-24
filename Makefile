@@ -14,5 +14,4 @@ test:
 
 coverage:
 	sudo docker compose run --rm app sh -c "coverage html"
-	sudo docker cp $$(sudo docker compose ps -q app):/app/htmlcov ./
-	xdg-open htmlcov/index.html
+	xdg-open http://127.0.0.1:5500/htmlcov/index.html
