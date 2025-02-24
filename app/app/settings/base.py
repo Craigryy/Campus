@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "wagtail.api.v2",  # Ensure Wagtail API is enabled
     "rest_framework",
     "drf_spectacular",
+    'rest_framework.authtoken',
 
 
 ]
