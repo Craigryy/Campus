@@ -139,3 +139,22 @@ class PrivateProfileAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)  # Expecting 1 profile
         self.assertEqual(res.data[0]["id"], another_profile.id)  # Ensure correct profile is returned
+
+    def test_like_and_unlike_profile(self):
+        """Test liking and unliking a profile."""
+        another_user = create_user(email="likeduser@example.com")
+        another_profile = Profile.objects.create(user=another_user, status="Popular")
+
+        url = LIKE_URL(another_profile.id)
+
+        # Like the profile
+        res = self.client.post(url)
+        another_profile.refresh_from_db()
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(another_profile.like_count, 1)
+
+    # Unlike the profile
+        res = self.client.post(url)
+        another_profile.refresh_from_db()
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(another_profile.like_count, 0)  # Unliked

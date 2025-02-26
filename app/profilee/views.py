@@ -34,13 +34,18 @@ class ProfileCreateView(generics.CreateAPIView):
         return super().create(request, *args, **kwargs)
 
 class LikeProfileView(generics.GenericAPIView):
-    """Allow users to like a profile."""
+    """Allow users to like or unlike a profile."""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        profile = Profile.objects.get(pk=kwargs['pk'])
-        profile.like()
-        return Response({"message": "Profile liked!"}, status=status.HTTP_200_OK)
+        user_profile = Profile.objects.get(user=request.user)
+        profile_to_like = Profile.objects.get(pk=kwargs['pk'])
+
+        if user_profile == profile_to_like:
+            return Response({"error": "You cannot like your own profile."}, status=status.HTTP_400_BAD_REQUEST)
+
+        message = user_profile.like(profile_to_like)
+        return Response({"message": message}, status=status.HTTP_200_OK)
 
 class TopLikedProfilesView(generics.ListAPIView):
     """Show top 5 profiles that the authenticated user has liked, if they have paid."""
@@ -50,5 +55,5 @@ class TopLikedProfilesView(generics.ListAPIView):
     def get_queryset(self):
         user_profile = Profile.objects.get(user=self.request.user)
         if user_profile.is_paid:
-            return Profile.objects.filter(liked_by=user_profile).order_by('-like_count')[:5]
-        return Profile.objects.none()  # Return an empty queryset if not paid
+            return user_profile.liked_profiles.order_by('-like_count')[:5]
+        return Profile.objects.none()

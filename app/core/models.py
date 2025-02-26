@@ -99,13 +99,22 @@ class Profile(models.Model):
     number = models.CharField(max_length=15, blank=True, null=True)
     like_count = models.PositiveIntegerField(default=0)  # Like counter
     is_paid = models.BooleanField(default=False)  # Payment status
-    liked_profiles = models.ManyToManyField("self", symmetrical=False, related_name="liked_by")
+    liked_profiles = models.ManyToManyField("self", symmetrical=False, related_name="liked_by", blank=True)
 
-    def like(self):
-        """Increase like count."""
-        self.like_count += 1
+    def like(self, profile):
+        """Toggle like on a profile."""
+        if profile in self.liked_profiles.all():
+            self.liked_profiles.remove(profile)
+            profile.like_count = max(profile.like_count - 1, 0)
+            message = "Profile unliked!"
+        else:
+            self.liked_profiles.add(profile)
+            profile.like_count += 1
+            message = "Profile liked!"
+
+        profile.save()
         self.save()
-
+        return message
 
     def __str__(self):
         return f"{self.user.name}'s Profile"
