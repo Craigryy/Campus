@@ -24,6 +24,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Media Directory
+        run: mkdir -p media/uploads && chmod -R 777 media
+
+
       - name: Test
         run: |
           export TESTING=True
