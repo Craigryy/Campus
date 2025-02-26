@@ -1,12 +1,13 @@
-from django.test import TestCase  # Django's built-in test framework
-from django.contrib.auth import get_user_model  # Function to retrieve the custom user model
-from django.urls import reverse  # Generates URLs dynamically
-from rest_framework import status  # Provides HTTP status codes
-from rest_framework.test import APIClient  # Test client for making API requests
-from core.models import Profile  # Importing the Profile model
-from PIL import Image  # Importing Pillow to create test images
-import tempfile  # Used for creating temporary files
-
+import os
+import tempfile
+from PIL import Image
+from django.core.files.storage import default_storage
+from django.test import TestCase
+from django.contrib.auth import get_user_model
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
+from core.models import Profile
 
 # Generate the URL for retrieving/updating the authenticated user's profile
 PROFILE_URL = reverse('profilee:me')
@@ -42,11 +43,9 @@ class PublicProfileAPITests(TestCase):
 
         Expected Behavior:
         - Unauthenticated requests should return a 401 Unauthorized response.
-        # """
+        """
         res = self.client.get(PROFILE_URL)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)  # Expecting 401 error
-
-
 
 
 class PrivateProfileAPITests(TestCase):
@@ -104,6 +103,18 @@ class PrivateProfileAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)  # Ensure success
         self.assertEqual(self.profile.status, payload['status'])  # Check if status was updated
 
+    def test_profile_auto_created_on_user_creation(self):
+        """
+        Test if a profile is NOT automatically created when a new user is registered.
+
+        Expected Behavior:
+        - A profile should NOT exist for every newly created user.
+        """
+        new_user = create_user(email='newuser@example.com', password='testpass123')  # Create new user
+        profile_exists = Profile.objects.filter(user=new_user).exists()  # Check if profile exists
+
+        self.assertFalse(profile_exists)  # Ensure profile does NOT exist
+
     def test_update_profile_image(self):
         """
         Test uploading a profile image using Pillow (PIL).
@@ -111,34 +122,45 @@ class PrivateProfileAPITests(TestCase):
         Expected Behavior:
         - The response should return HTTP 200 OK.
         - The image should be successfully stored in the database.
+        - The image should be removed from the filesystem after testing.
         """
         with tempfile.NamedTemporaryFile(suffix=".jpg") as temp_image:
-            # Create a dummy image using Pillow (PIL)
-            image = Image.new("RGB", (100, 100), color="blue")  # Create a 100x100 blue image
-            image.save(temp_image, format="JPEG")  # Save image as JPEG
-            temp_image.seek(0)  # Reset file pointer to start
+            # Create a dummy image using Pillow
+            image = Image.new("RGB", (100, 100), color="blue")
+            image.save(temp_image, format="JPEG")
+            temp_image.seek(0)
 
-            # Prepare payload with the temporary image file
+            # Upload image
             payload = {'image': temp_image}
-
-            # Send a PATCH request to update the profile image
             res = self.client.patch(PROFILE_URL, payload, format='multipart')
 
-            # Refresh profile data from database
+            # Refresh profile data
             self.profile.refresh_from_db()
 
             self.assertEqual(res.status_code, status.HTTP_200_OK)  # Ensure success
             self.assertTrue(self.profile.image)  # Ensure an image was uploaded
 
-    def test_profile_auto_created_on_user_creation(self):
+            # Get the file path
+            image_path = self.profile.image.path
+            self.assertTrue(os.path.exists(image_path))  # Ensure image exists
+
+            # **Cleanup: Delete the uploaded image after test**
+            if os.path.exists(image_path):
+                os.remove(image_path)
+
+            # Ensure image is removed
+            self.assertFalse(os.path.exists(image_path))
+
+    def test_delete_profile(self):
         """
-        Test if a profile is NOT automatically created when a new user is registered.
+        Test deleting the authenticated user's profile.
 
         Expected Behavior:
-        - A profile should exist for every newly created user.
+        - The response should return HTTP 204 No Content.
+        - The profile should be removed from the database.
         """
-        new_user = create_user(email='newuser@example.com', password='testpass123')  # Create new user
-        profile_exists = Profile.objects.filter(user=new_user).exists()  # Check if profile exists
+        res = self.client.delete(PROFILE_URL)
+        profile_exists = Profile.objects.filter(user=self.user).exists()
 
-        self.assertFalse(profile_exists)  # Ensure profile exist
-
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)  # Expect success
+        self.assertFalse(profile_exists)  # Ensure profile is deleted
