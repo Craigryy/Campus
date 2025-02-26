@@ -1,9 +1,10 @@
-"""
-Tests for models.
-"""
+from unittest.mock import patch
+from decimal import Decimal
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from core import models
 
 class ModelTests(TestCase):
     """Test models."""
@@ -37,7 +38,6 @@ class ModelTests(TestCase):
         with self.assertRaises(ValueError):
             get_user_model().objects.create_user('', 'test123')
 
-
     def test_create_superuser(self):
         """Test creating a superuser."""
         user = get_user_model().objects.create_superuser(
@@ -47,3 +47,29 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_profile(self):
+        """Test creating a profile is successful."""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123',
+        )
+        profile = models.Profile.objects.create(
+            user=user,
+            image='image.jpg',
+            status='single',  # Explicitly setting it, but it's optional
+        )
+
+        self.assertEqual(profile.user, user)
+        self.assertEqual(profile.image, 'image.jpg')
+        self.assertEqual(profile.status, 'single')  # Check if default or assigned value is correct
+        self.assertEqual(str(profile), f"{user.name}'s Profile")
+
+    @patch('core.models.uuid.uuid4')
+    def test_profile_file_name_uuid(self, mock_uuid):
+        """Test generating image path."""
+        uuid = 'test-uuid'
+        mock_uuid.return_value = uuid
+        file_path = models.profile_image_file_path(None, 'example.jpg')
+
+        self.assertEqual(file_path, f'uploads/profile/{uuid}.jpg')

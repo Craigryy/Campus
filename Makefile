@@ -1,7 +1,7 @@
 .PHONY: run build down test coverage
 
 run:
-	sudo docker compose up
+	 sudo docker compose run --rm app python manage.py makemigrations && sudo docker compose run --rm app python manage.py migrate && sudo docker compose up 
 
 build:
 	sudo docker compose build
@@ -15,3 +15,4 @@ test:
 coverage:
 	sudo docker compose run --rm app sh -c "coverage html"
 	xdg-open http://127.0.0.1:5500/htmlcov/index.html
+
