@@ -4,7 +4,8 @@ import os
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import (
-    AbstractBaseUser,  # Provides authentication features like password hashing.
+    # Provides authentication features like password hashing.
+    AbstractBaseUser,
     BaseUserManager,  # Manages user creation logic.
     PermissionsMixin,  # Adds permission-related functionality.
 )
@@ -95,6 +96,17 @@ class Profile(models.Model):
         default='single'
     )
 
+    number = models.CharField(max_length=15, blank=True, null=True)
+    like_count = models.PositiveIntegerField(default=0)  # Like counter
+    is_paid = models.BooleanField(default=False)  # Payment status
+    liked_profiles = models.ManyToManyField("self", symmetrical=False, related_name="liked_by")
+
+    def like(self):
+        """Increase like count."""
+        self.like_count += 1
+        self.save()
+
+
     def __str__(self):
         return f"{self.user.name}'s Profile"
 
@@ -116,7 +128,8 @@ class Relationship(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('from_user', 'to_user')  # Prevent duplicate relationships
+        # Prevent duplicate relationships
+        unique_together = ('from_user', 'to_user')
 
     def __str__(self):
         return f"{self.from_user.name} follows {self.to_user.name}"

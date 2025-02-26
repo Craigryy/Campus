@@ -4,3 +4,5 @@ wagtail>=6.3,<6.4
 drf-spectacular-sidecar
 drf-spectacular
 coverage
+black
+autopep8

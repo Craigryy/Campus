@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 
 from core import models
 
+
 class ModelTests(TestCase):
     """Test models."""
 
@@ -62,7 +63,8 @@ class ModelTests(TestCase):
 
         self.assertEqual(profile.user, user)
         self.assertEqual(profile.image, 'image.jpg')
-        self.assertEqual(profile.status, 'single')  # Check if default or assigned value is correct
+        # Check if default or assigned value is correct
+        self.assertEqual(profile.status, 'single')
         self.assertEqual(str(profile), f"{user.name}'s Profile")
 
     @patch('core.models.uuid.uuid4')

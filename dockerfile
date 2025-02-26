@@ -24,6 +24,8 @@ RUN apk add --update --no-cache postgresql-client && \
     apk del .tmp-build-deps && \
     adduser --disabled-password --no-create-home django-user
 
+
+
 ENV PATH="/py/bin:$PATH"
 
 USER django-user
