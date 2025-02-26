@@ -27,8 +27,11 @@ jobs:
       - name: Setup Media Directory
         run: mkdir -p media/uploads && chmod -R 777 media
 
-
       - name: Test
         run: |
           export TESTING=True
           docker compose run --rm app sh -c " python manage.py wait_for_db && python manage.py test"
+
+      - name: Cleanup Test Media Files
+        run: rm -rf media/uploads
+
