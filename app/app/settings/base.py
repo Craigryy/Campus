@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import tempfile
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -154,6 +155,12 @@ STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+
+if "TESTING" in os.environ:
+    MEDIA_ROOT = tempfile.mkdtemp()  # Use a temporary directory for tests
+
+
 
 # Default storage settings, with the staticfiles storage updated.
 # See https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-STORAGES

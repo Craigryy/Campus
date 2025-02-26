@@ -1,6 +1,8 @@
 import os
+import shutil
 import tempfile
 from PIL import Image
+from django.conf import settings
 from django.core.files.storage import default_storage
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -47,6 +49,12 @@ class PrivateProfileAPITests(TestCase):
 
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
+
+    def tearDown(self):
+        """Remove temporary media files after each test."""
+        if settings.MEDIA_ROOT and "tmp" in settings.MEDIA_ROOT:
+            shutil.rmtree(settings.MEDIA_ROOT, ignore_errors=True)
+
 
     def test_retrieve_profile_success(self):
         """Test retrieving the profile of the authenticated user."""
