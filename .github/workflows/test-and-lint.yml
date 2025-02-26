@@ -25,10 +25,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create media directory
-        run: mkdir -p media && chmod 777 media
+        run: mkdir -p media && chmod 777 media  # Ensures media folder exists locally
 
       - name: Test
-        run: docker compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
-
-    #   - name: Python flake8
-    #     run: docker compose run --rm app sh -c "flake8"
+        run: |
+          docker compose run --rm app sh -c "mkdir -p /app/media && chmod 777 /app/media && python manage.py wait_for_db && python manage.py test"

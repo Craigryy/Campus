@@ -8,8 +8,9 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - ./media:/app/media  # Mounts media directory
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "mkdir -p /app/media && chmod 777 /app/media && python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db
       - DB_NAME=devdb
