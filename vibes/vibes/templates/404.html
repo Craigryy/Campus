@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/404.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+{% include "snippet_header.html" %}
+
+
+<main class="main top">
+    <h1 class="text-center Oops-txt">Oops, we can't find the page you are looking for!</h1>
+            
+    <div class="notfound-emoji top text-center">
+        <p>&#x1F62E;</p>
+    </div>
+
+    <div class="text-center top">
+        <a href="/" target="_blank" rel="noreferrer">
+            <button class="btn back mt-10">BACK TO HOME</button>
+        </a>
+    </div>
+</main>
+
+{% endblock content %}

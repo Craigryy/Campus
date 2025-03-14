@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "vibes"
+version = "0.1.0"
+description = ""
+authors = ["Craigryy <harria.hj@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.2.5"
+wagtail = "6.2.2"
+dj-database-url = "^2.1.0"
+gunicorn = "^21.2.0"
+whitenoise = "^6.5.0"
+flake8 = "^3.9.2"
+autopep8 = "^1.5.7"
+pylint = "^2.9.3"
+django-debug-toolbar = "^4.2.0"
+psycopg2-binary = "^2.9.9"
+django-storages = "^1.14.4"
+boto3 = "^1.35.37"
+django-contrib-comments = "^2.2.0"
+email-validator = "^2.2.0"
+dnspython = "^2.7.0"
+cachetools = "^5.5.0"
+django-pwa = "^2.0.1"
+django-social-share = "^2.3.0"
+redis = "^5.1.1"
+django-redis = "^5.4.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

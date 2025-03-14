@@ -1,0 +1,91 @@
+# version: '3'
+
+volumes:
+  postgres_data: {}
+  postgres_backup: {}
+
+
+services:
+  database:
+    restart: always
+    image: postgres:13-alpine
+    container_name: vibes_db
+    environment:
+      - POSTGRES_PASSWORD=vibes_tory
+      - POSTGRES_USER=vibes_tory
+      - POSTGRES_DB=vibes_tory
+    ports:
+      - "8002:5432" # to avoid local ports from clashing
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backup:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vibes_tory"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  # Using traefik as reverse proxy
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.9
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  web:
+    restart: always
+    container_name: vibes_web
+    user: "root:vibes"
+    build:
+        context: .
+        dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    labels:
+      - "traefik.http.routers.web.rule=Host(`vibes.docker.localhost`)"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+      pwd
+      poetry run vibes/manage.py makemigrations
+      poetry run vibes/manage.py migrate
+      # Create superuser if not exists
+      poetry run vibes/manage.py shell <<EOF
+      from django.contrib.auth.models import User
+      user, created = User.objects.get_or_create(username='devadmin', defaults={'email': 'admin@example.com', 'is_superuser': True, 'is_staff': True})
+      if created:
+          user.set_password('nimda')
+          user.save()
+          print("Superuser 'devadmin' created.")
+      else:
+          print("Superuser 'devadmin' already exists.")
+      EOF
+
+      echo Starting Django development server..
+      poetry run vibes/manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=vibes.settings.dev
+      - DATABASE_URL=postgresql://vibes_tory:vibes_tory@database:5432/vibes_tory
+      - DB_NAME=vibes_tory
+      - DB_PORT=5432
+      - DB_USER=vibes_tory
+      - DB_PASSWORD=vibes_tory
+      - DB_HOST=database
+      - ENVIRONMENT=dev
+
+networks:
+  default:
+      name: vibes
+

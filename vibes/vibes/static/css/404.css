@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+}
+
+/* Temporary Fix */
+
+.notfound-emoji {
+    text-align: center;
+    font-size: 150px;
+    color: var(--blog-black);
+    font-family: 'Didact Gothic', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 275;
+}
+
+.Oops-txt {
+    color: var(--blog-black);
+    font-size: 40px;
+    font-family: 'Didact Gothic', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 225;
+}
+
+.back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--blog-black);
+    color: var(--dim-white);
+    border: 2px solid var(--blog-yellow);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back:hover {
+    background-color: var(--blog-category-hover);
+}
+
+.top {
+    margin-top: 40px;
+}

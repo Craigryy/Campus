@@ -1,0 +1,274 @@
+
+.bg-height {
+    height: 80vh;
+    margin: 0 20px;
+}
+
+.sub-col {
+    background-color: #181818;
+}
+
+blockquote {
+    font-size: 1.5em;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 10px;
+    font-style: italic;
+    align-self: flex-end;
+}
+
+.em-dash-before:before {
+    color: var(--dim-yellow);
+    content: "— ";
+}
+
+/* Apply the font to your "Welcome to Scriptures and Power" text */
+.welcome-text {
+    font-family: 'Roboto Condensed', sans-serif; /* Use the custom font-family */
+    font-weight: 500; /* Medium weight */
+    font-size: 14px; /* Font size of 14 pixels */
+    color: var(--dim-white);
+    line-height: 1.5; /* Adjust the line height for better spacing */
+}
+
+/* Apply the font to your main text header */
+.main-header {
+    font-family: 'Roboto Condensed', sans-serif; /* Use the custom font-family */
+    font-weight: 700; /* Bold weight */
+    font-size: 48px; /* Font size of 48 pixels */
+    color: var(--header-text);
+}
+
+  /* Apply the font to your text */
+.sub-text {
+    font-family: 'Roboto Serif', serif; /* Use the custom font-family */
+    font-weight: 400; /* Regular weight */
+    font-size: 16px; /* Font size of 16 pixels */
+    color: var(--header-text);
+    line-height: 1.5;
+}
+
+/* Apply the font to your "LEARN MORE" text */
+.learn-more {
+    font-family: 'Roboto Condensed', sans-serif; /* Use the custom font-family */
+    font-weight: 500; /* Medium weight */
+    font-size: 14px; /* Font size of 14 pixels */
+    color: var(--header-text);
+
+}
+
+/* Apply the font to your Scripture verse text */
+.scripture-verse {
+    font-family: 'Roboto Condensed', sans-serif; /* Use the custom font-family */
+    font-weight: 700; /* Bold weight */
+    font-size: 20px; /* Font size of 20 pixels */
+    color: var(--header-text);
+    line-height: normal;
+}
+
+.lm-btn {
+    background-color: var(--dim-yellow);
+    padding: 20px 35px; /* Increase padding for button size */
+    border-radius: 10px
+}
+
+.foot-icon {
+    margin: 20px 0; /* Remove negative margins */
+}
+
+.footer-icon {
+    width: 60px;
+    height: 60px;
+}
+
+footer {
+    clear: both;
+    padding-top: 20px 0;
+}
+
+.intro {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 80vh;
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+
+@media (max-width: 1920px) {
+    .intro {
+        background-position: top center; /* Adjust position if needed */
+        padding-top: 40px;  /* Adjust based on the height of your navbar */
+        padding-bottom: 70px;
+        height: 140vh;
+    }
+
+    /* .bg-height {
+        height: 80vh;
+    } */
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+}
+
+@media (max-width: 1440px) {
+    .intro {
+        background-position: top center; /* Adjust position if needed */
+        padding-top: 40px;  /* Adjust based on the height of your navbar */
+        padding-bottom: 70px;
+        height: 150vh;
+    }
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+}
+
+@media (max-width: 1366px) {
+    .intro {
+        background-position: top center; /* Adjust position if needed */
+        padding-top: 40px;  /* Adjust based on the height of your navbar */
+        padding-bottom: 70px;
+        height: 150vh;
+    }
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+}
+
+@media (max-width: 1024px) {
+    .intro {
+        background-position: top center;
+        padding-top: 40px;  /* Adjust based on the height of your navbar */
+        padding-bottom: 70px;
+        height: 140vh;
+    }
+
+    /* .foot-icon {
+        margin: 20px;
+    } */
+
+    .footer-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .intro {
+        background-position: top center;
+        padding-top: 40px;  /* Adjust based on the height of your navbar */
+        padding-bottom: 70px;
+        height: 90vh;
+    }
+
+    .footer-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .foot-icon {
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 414px) {
+    .intro {
+        background-position: top center;
+        padding-top: 40px;  /* Adjust based on the height of your navbar */
+        padding-bottom: 70px;
+        height: 115vh;
+    }
+
+    /* .bg-height {
+        height: 70vh;
+    } */
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+    .footer-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 375px) {
+    .intro {
+        background-position: top center;
+        padding-top: 40px;
+        padding-bottom: 70px;
+        height: 115vh;
+    }
+
+    /* .bg-height {
+        height: 115vh;
+    } */
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+    .footer-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+}
+
+@media (max-width: 320px) {
+    .intro {
+        background-position: top center;
+        padding-top: 40px;
+        padding-bottom: 70px;
+        height: 115vh;
+    }
+
+    /* .bg-height {
+        height: 100vh;
+    } */
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+    .footer-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 280px) {
+    .intro {
+        background-position: top center;
+        padding-top: 40px;
+        padding-bottom: 170px;
+        height: 115vh;
+    }
+
+    /* .bg-height {
+        height: 100vh;
+    } */
+
+    .foot-icon {
+        margin: 20px;
+    }
+
+    .footer-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
