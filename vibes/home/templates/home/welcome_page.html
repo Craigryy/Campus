@@ -2,4 +2,55 @@
 
 {% include "snippet_header.html" %}
 
-<!-- Main content area -->
+<!-- Welcome Header -->
+<header class="welcome-header text-center text-white d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="lead ld">
+            {{ page.intro|safe }}
+        </div>
+    </div>
+</header>
+
+<div class="container my-4">
+    <div class="grid-container">
+
+        <!-- Latest Stories -->
+        <div class="latest-stories">
+            <h3>Latest Stories</h3>
+
+            <div class="filter-bar">
+                <a href="#" class="filter-btn active" data-filter="hot">Hot</a>
+                <a href="#" class="filter-btn" data-filter="all">All</a>
+                <a href="#" class="filter-btn" data-filter="business">Business</a>
+                <a href="#" class="filter-btn" data-filter="leaks">Leaks</a>
+            </div>
+
+            <div id="resourceContainer">
+                {% for blog in featured_posts %}
+                    <div class="resource-item featured" data-type="featured">
+                        <h4 class="resource-title">
+                            <a href="{{ blog.url }}">{{ blog.title }}</a>
+                        </h4>
+                        <p class="resource-description">
+                            Published on {{ blog.first_published_at|date:"F j, Y" }}
+                        </p>
+                    </div>
+                {% empty %}
+                    <p class="text-muted">No featured blogs available.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="upcoming-events">
+            <h3>Upcoming Events</h3>
+            <ul>
+                {% for event in upcoming_events %}
+                    <li>{{ event.name }} - {{ event.date }}</li>
+                {% empty %}
+                    <p>No upcoming events.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

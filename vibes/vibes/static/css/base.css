@@ -41,6 +41,12 @@ html, body {
   overflow-x: hidden;
 }
 
+
+a {
+  text-decoration: none !important;
+}
+
+
 button {
   padding: 10px 20px;
   font-size: 1em;
@@ -53,13 +59,13 @@ button {
 /* Apply the font to your header navigation */
 .header-navigation {
   font-family: 'Roboto Condensed', sans-serif; /* Use the custom font-family */
-  font-weight: 400; /* Regular weight */
+  font-weight: 800; /* Regular weight */
   font-size: 16px; /* Font size of 16 pixels */
-  color: var(--header-text);
+  color: white;
 }
 
 .header {
-  background-color: black;
+  background-color: white;
   padding-top: 20px;
   padding-bottom: 10px;
 }
@@ -69,7 +75,6 @@ button {
   width: 175px;
   border-radius: 10px;
 }
-
 
 nav ul {
   gap: 5px;
@@ -81,16 +86,18 @@ nav ul {
 
 nav ul li .nav-col {
   text-decoration: none;
-  color: #FFFFFF;
+  color: var(--super-grey);
+  font-weight: 700;
+
 }
 
 .navbar-toggler:hover .navbar-toggler-icon {
-    background-color: var(--blog-inactive);
+    background-color: white;
 }
 
 .navbar-toggler:hover .navbar-toggler-icon::before,
 .navbar-toggler:hover .navbar-toggler-icon::after {
-    background-color: var(--blog-inactive);
+    background-color: white;
 }
 
 .navbar-toggler:focus {
@@ -98,15 +105,15 @@ nav ul li .nav-col {
 }
 
 .navbar-toggler {
-  background-color: var(--blog-black);
-  border: 1px solid gray;
+  /* background-color: white !important;
+  border: 1px solid white; */
   filter: brightness(0.5);
   margin-right: 20px;
 }
 
 /* Style for the hamburger icon */
 .navbar-toggler-icon {
-  background-color:gray; /* Color of the bars (you can customize) */
+  background-color: white !important; /* Color of the bars (you can customize) */
   position: relative;
   width: 30px; /* Adjust the width of the icon */
   height: 2px; /* Adjust the thickness of the bars */
@@ -120,7 +127,7 @@ nav ul li .nav-col {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--blog-yellow);
+    background-color: white;
     transition: all 0.3s ease-in-out;
 }
 
@@ -153,7 +160,7 @@ nav ul li .nav-col {
 
 .btn-outline-warning {
   border-color: transparent;
-  color:gray;
+  color:white;
 }
 
 
